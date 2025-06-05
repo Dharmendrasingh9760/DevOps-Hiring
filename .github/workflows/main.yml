@@ -18,12 +18,12 @@ jobs:
 
     - name: Build and Push Frontend Image
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest ./frontend
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest ./CI-Frontend
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
 
     - name: Build and Push Backend Image
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest ./backend
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest ./CI-Backend
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
 
     - name: Deploy to Frontend Server
