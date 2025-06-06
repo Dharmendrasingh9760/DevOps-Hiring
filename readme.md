@@ -1,58 +1,34 @@
-# DevOps Technical Challenge
+# 🚀 DevOps Technical Challenge
 
-## Objective
-Fork this code and Deploy the frontend and backend application using two separate servers, containerize the applications, set up a reverse proxy, and implement CI/CD automation.
+## 📦 Project Structure
+- `CI-Frontend/`: Vue.js frontend
+- `CI-Backend/`: Node.js backend API
+- `nginx/`: NGINX reverse proxy config
 
-## Deadline
-**Saturday, May 24th, 2025, 23:59:59**
+## 🐳 Docker
+- Frontend: Built and served with NGINX
+- Backend: Node.js API on port 3000
 
-## Architecture
-- Two separate servers (EC2 instances t2.micro or local VMs)
-- Server 1: Frontend + NGINX reverse proxy
-- Server 2: Backend API
-- All applications containerized with Docker
-- CI/CD pipeline to automate deployment
+## 🌐 Deployment
+- Frontend on EC2 Server 1 (`port 8080`)
+- Backend on EC2 Server 2 (`port 3000`)
+- NGINX routes `/api` → Backend
 
-## Requirements
+## 🔄 CI/CD
+- GitHub Actions triggers deployment on push
+- Auto-build + deploy to EC2 over SSH
 
-### 1. Server Setup
-- Provision 2 EC2 instances (t2.micro Free Tier) or local VMs
+## 🔐 GitHub Secrets
+- `SSH_PRIVATE_KEY`: EC2 private key
+- `FRONTEND_SERVER_IP`: Public IP of frontend server
+- `BACKEND_SERVER_IP`: Public IP of backend server
 
-### 2. Containerization
-- Dockerize backend API and Build the Frontend for Prod
-- Frontend container runs on Server 1
-- Backend container runs on Server 2
+## 📎 How to Run Locally
+```bash
+cd CI-Frontend
+docker build -t frontend-app .
+docker run -d -p 8080:80 frontend-app
 
-### 3. Reverse Proxy
-- Set up NGINX on the frontend server to:
-  - Route `/` requests to the frontend container
-  - Route `/api` requests to the backend server
-
-### 4. CI/CD Pipeline
-- Implement GitHub Actions (or similar) to:
-  - Build Docker images when code is pushed
-  - Push images to Docker Hub
-  - Deploy to the respective servers automatically
-
-### 5. Secret Management
-- Implement secure handling of environment variables and secrets:
-  - Store sensitive information (API keys, database credentials, etc.) as environment variables
-  - Use GitHub Secrets or any other for CI/CD pipeline credentials
-  - Demonstrate secure method to inject environment variables into containers
-
-## Bonus Points - OPTIONAL
-- Completing these optional tasks can be beneficial:
-  - Implementing automated test cases in the CI pipeline
-  - Deploying on a Kubernetes cluster (on cloud or using Minikube)
-  - Creating Kubernetes manifests for deployment, service, secrets, etc.
-  - Setting up basic monitoring and alerting 
-
-## Deliverables
-
-Submit a GitHub repository containing:
-
-1. **Dockerfiles** for the application.
-2. **NGINX configuration** for the reverse proxy
-3. **CI/CD configuration** files
-4. **README.md** with setup and deployment instructions
-5. **Video** of you explaining the whole architecture and flow. (You can use LOOM to showcase)
+cd CI-Backend
+docker build -t backend-app .
+docker run -d -p 3000:3000 backend-app
