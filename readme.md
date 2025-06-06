@@ -10,7 +10,7 @@
 - Backend: Node.js API on port 3000
 
 ## 🌐 Deployment
-- Frontend on EC2 Server 1 (`port 8080`)
+- Frontend on EC2 Server 1 (`port 5000`)
 - Backend on EC2 Server 2 (`port 3000`)
 - NGINX routes `/api` → Backend
 
@@ -27,7 +27,7 @@
 ```bash
 cd CI-Frontend
 docker build -t frontend-app .
-docker run -d -p 8080:80 frontend-app
+docker run -d -p 5000:5000 frontend-app
 
 cd CI-Backend
 docker build -t backend-app .
